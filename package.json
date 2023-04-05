@@ -1,0 +1,15 @@
+{
+  "name": "olle-ts-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "git@github.com-social:E1I4-9oormthon/olle-ts-server.git",
+  "author": "YUZAMIN <untmd.crmn@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./bin/www",
+    "start:dev": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
