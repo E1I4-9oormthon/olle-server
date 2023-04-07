@@ -11,7 +11,7 @@ const authRouter = require("./routes/auth");
 
 const app = express();
 
-app.use("/", authRouter);
+app.use("/v1/api/auth", authRouter);
 
 app.use(cookieParser());
 app.use(logger("dev"));
