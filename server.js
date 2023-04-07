@@ -4,11 +4,21 @@ const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
-const app = express();
+const sequelize = require("./models/index.js").sequelize;
+sequelize.sync();
 
 const authRouter = require("./routes/auth");
 
+const app = express();
+
+app.use("/", authRouter);
+
 app.use(cookieParser());
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: [
@@ -22,8 +32,6 @@ app.use(
     credentials: true,
   })
 );
-
-app.use("/", authRouter);
 
 app.listen(8080, function () {
   console.log("listening on 8080");
