@@ -21,3 +21,30 @@ exports.getAccessTokenFromKakao = async (req, res, next) => {
       .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
   }
 };
+
+exports.getUserDataFromKakao = async (req, res, next) => {
+  try {
+    const fetchedData = await axios.get(
+      `${process.env.KAKAO_API_URL}/v2/user/me`,
+      {
+        headers: {
+          Authorization: `Bearer ${res.locals.accessToken}`,
+          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      }
+    );
+    res.locals.userDataFromKakao = {
+      id: fetchedData.data.id,
+      nickname: fetchedData.data.kakao_account.profile.nickname,
+      profile_image: fetchedData.data.kakao_account.profile.profile_image_url,
+      email: fetchedData.data.kakao_account.email,
+      gender: fetchedData.data.kakao_account.gender || null,
+      age_range: fetchedData.data.kakao_account.age_range || null,
+    };
+    next();
+  } catch {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+  }
+};
