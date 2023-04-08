@@ -37,4 +37,25 @@ router.get("/info", isSignedIn, async (req, res) => {
   }
 });
 
+/**
+ * 회원 정보 수정
+ */
+router.patch("/info", isSignedIn, async (req, res) => {
+  try {
+    const modifyInfo = {
+      prefer_travel: req.body.prefer_travel,
+    };
+
+    await Member.update(modifyInfo, {
+      where: { id: verify(res.locals.token).memberId },
+    });
+
+    return res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
+  } catch {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+  }
+});
+
 module.exports = router;
