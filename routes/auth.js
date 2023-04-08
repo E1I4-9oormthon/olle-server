@@ -37,7 +37,9 @@ router.get(
         "Set-Cookie",
         `token=${token}; Path=/; HttpOnly; SameSite=none; secure=true;`
       );
-      return res.status(StatusCodes.OK).redirect(process.env.FRONT_URL);
+      return res
+        .status(StatusCodes.OK)
+        .redirect(process.env.KAKAO_OAUTH_AFTER_SIGN_IN_URL);
     } catch {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
