@@ -23,6 +23,21 @@ exports.getAccessTokenFromKakao = async (req, res, next) => {
 };
 
 exports.getUserDataFromKakao = async (req, res, next) => {
+  const convertGender = (fetchedGender) => {
+    switch (fetchedGender) {
+      case "female":
+        return 1;
+      case "male":
+        return 2;
+      default:
+        return 0;
+    }
+  };
+
+  const convertAgeRange = (fetchedAgeRange) => {
+    return fetchedAgeRange.split("~")[0];
+  };
+
   try {
     const fetchedData = await axios.get(
       `${process.env.KAKAO_API_URL}/v2/user/me`,
@@ -33,14 +48,28 @@ exports.getUserDataFromKakao = async (req, res, next) => {
         },
       }
     );
+
     res.locals.userDataFromKakao = {
       id: fetchedData.data.id,
       nickname: fetchedData.data.kakao_account.profile.nickname,
       profile_image: fetchedData.data.kakao_account.profile.profile_image_url,
       email: fetchedData.data.kakao_account.email,
-      gender: fetchedData.data.kakao_account.gender || null,
-      age_range: fetchedData.data.kakao_account.age_range || null,
+      gender: 0,
+      age_range: 0,
     };
+
+    if (fetchedData.data.kakao_account.gender) {
+      res.locals.userDataFromKakao.gender = convertGender(
+        fetchedData.data.kakao_account.gender
+      );
+    }
+
+    if (fetchedData.data.kakao_account.age_range) {
+      res.locals.userDataFromKakao.age_range = convertAgeRange(
+        fetchedData.data.kakao_account.age_range
+      );
+    }
+
     next();
   } catch {
     return res
