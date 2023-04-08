@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
+const { verify } = require("../modules/jwt");
 
 exports.getAccessTokenFromKakao = async (req, res, next) => {
   try {
@@ -82,5 +83,25 @@ exports.getUserDataFromKakao = async (req, res, next) => {
       .send(
         "카카오 API로부터 사용자 정보를 가져오는 중 오류가 발생하였습니다."
       );
+  }
+};
+
+exports.isSignedIn = async (req, res, next) => {
+  try {
+    const token = req.headers.cookie.split("=")[1];
+    try {
+      verify(token, process.env.JWT_SECRET_KEY);
+      res.locals.token = token;
+      next();
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .send(ReasonPhrases.UNAUTHORIZED);
+    }
+  } catch {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
   }
 };
