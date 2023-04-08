@@ -13,7 +13,7 @@ router.get(
   "/kakao/signin/callback",
   getAccessTokenFromKakao,
   getUserDataFromKakao,
-  async (req, res, next) => {
+  async (req, res) => {
     try {
       const accordMember = await Member.findOne({
         where: { id: res.locals.userDataFromKakao.id },
@@ -37,9 +37,16 @@ router.get(
         "Set-Cookie",
         `token=${token}; Path=/; HttpOnly; SameSite=none; secure=true;`
       );
-      return res
-        .status(StatusCodes.OK)
-        .redirect(process.env.KAKAO_OAUTH_AFTER_SIGN_IN_URL);
+
+      if (res.locals.userDataFromKakao.prefer_travel) {
+        return res
+          .status(StatusCodes.OK)
+          .redirect(process.env.KAKAO_OAUTH_AFTER_SIGN_IN_URL);
+      } else {
+        res
+          .status(StatusCodes.OK)
+          .redirect(process.env.KAKAO_OAUTH_AFTER_SIGN_IN_URL_NO_PREFER_TRAVEL);
+      }
     } catch {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
