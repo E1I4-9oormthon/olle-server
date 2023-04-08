@@ -7,6 +7,7 @@ exports.getAccessTokenFromKakao = async (req, res, next) => {
 
     const fetchedData = await axios.post(
       `${process.env.KAKAO_OAUTH_TOKEN_API_URL}?grant_type=${process.env.KAKAO_OAUTH_GRANT_TYPE}&client_id=${process.env.KAKAO_OAUTH_CLIENT_ID}&redirect_uri=${process.env.KAKAO_OAUTH_REDIRECT_URL}&code=${code}`,
+      {},
       {
         headers: {
           "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
@@ -15,10 +16,13 @@ exports.getAccessTokenFromKakao = async (req, res, next) => {
     );
     res.locals.accessToken = fetchedData.data.access_token;
     next();
-  } catch {
+  } catch (error) {
+    console.log(error);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+      .send(
+        "카카오 API로부터 엑세스 토큰을 가져오는 중 오류가 발생하였습니다."
+      );
   }
 };
 
@@ -71,9 +75,12 @@ exports.getUserDataFromKakao = async (req, res, next) => {
     }
 
     next();
-  } catch {
+  } catch (error) {
+    console.log(error);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+      .send(
+        "카카오 API로부터 사용자 정보를 가져오는 중 오류가 발생하였습니다."
+      );
   }
 };
