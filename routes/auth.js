@@ -19,14 +19,6 @@ router.get(
         where: { id: res.locals.userDataFromKakao.id },
       });
 
-      if (!accordMember) {
-        const newMember = {
-          ...res.locals.userDataFromKakao,
-          prefer_travel: 0,
-        };
-        await Member.create(newMember);
-      }
-
       const memberId = {
         memberId: res.locals.userDataFromKakao.id,
       };
@@ -38,15 +30,22 @@ router.get(
         `token=${token}; Path=/; HttpOnly; SameSite=none; secure=true;`
       );
 
-      if (res.locals.userDataFromKakao.prefer_travel) {
+      if (accordMember && accordMember.prefer_travel > 0) {
         return res
           .status(StatusCodes.OK)
           .redirect(process.env.KAKAO_OAUTH_AFTER_SIGN_IN_URL);
-      } else {
-        res
-          .status(StatusCodes.OK)
-          .redirect(process.env.KAKAO_OAUTH_AFTER_SIGN_IN_URL_NO_PREFER_TRAVEL);
       }
+
+      if (!accordMember) {
+        const newMember = {
+          ...res.locals.userDataFromKakao,
+          prefer_travel: 0,
+        };
+        await Member.create(newMember);
+      }
+      return res
+        .status(StatusCodes.OK)
+        .redirect(process.env.KAKAO_OAUTH_AFTER_SIGN_IN_URL_NO_PREFER_TRAVEL);
     } catch {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
