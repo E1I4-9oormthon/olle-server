@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       gender: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       age_range: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       prefer_travel: {
