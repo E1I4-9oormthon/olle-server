@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const Apply = sequelize.define(
     "apply",
     {
-      id: {
+      apply_id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
         allowNull: false,
