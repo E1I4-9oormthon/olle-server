@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const Olle = sequelize.define(
     "olle",
     {
-      id: {
+      olle_id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
         allowNull: false,
