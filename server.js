@@ -9,6 +9,7 @@ sequelize.sync();
 
 const authRouter = require("./routes/auth");
 const memberRouter = require("./routes/member");
+const olleRouter = require("./routes/olle");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(
 
 app.use("/v1/api/auth", authRouter);
 app.use("/v1/api/member", memberRouter);
+app.use("/v1/api/olle", olleRouter);
 
 app.listen(8080, function () {
   console.log("listening on 8080");
