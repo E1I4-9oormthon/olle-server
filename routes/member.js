@@ -12,12 +12,12 @@ const { Member } = require("../models");
 router.get("/info", isSignedIn, async (req, res) => {
   try {
     const signedInMember = await Member.findOne({
-      where: { id: verify(res.locals.token).memberId },
+      where: { member_id: verify(res.locals.token).memberId },
     });
 
-    const signedInMemberInfo = await Member.findByPk(signedInMember.id, {
+    const signedInMemberInfo = await Member.findByPk(signedInMember.member_id, {
       attributes: [
-        "id",
+        "member_id",
         "nickname",
         "profile_image",
         "email",
@@ -47,7 +47,7 @@ router.patch("/info", isSignedIn, async (req, res) => {
     };
 
     await Member.update(modifyInfo, {
-      where: { id: verify(res.locals.token).memberId },
+      where: { member_id: verify(res.locals.token).memberId },
     });
 
     return res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
