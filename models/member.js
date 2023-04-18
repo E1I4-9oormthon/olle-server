@@ -9,16 +9,16 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       nickname: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.VARCHAR(100),
         allowNull: false,
         unique: true,
       },
-      profile_image: {
+      profile_image_url: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
       email: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.VARCHAR(100),
         allowNull: false,
       },
       gender: {
