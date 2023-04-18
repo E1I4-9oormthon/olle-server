@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       nickname: {
-        type: DataTypes.VARCHAR(100),
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       email: {
-        type: DataTypes.VARCHAR(100),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       gender: {
