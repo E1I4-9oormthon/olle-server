@@ -57,7 +57,8 @@ exports.getUserDataFromKakao = async (req, res, next) => {
     res.locals.userDataFromKakao = {
       member_id: fetchedData.data.id,
       nickname: fetchedData.data.kakao_account.profile.nickname,
-      profile_image: fetchedData.data.kakao_account.profile.profile_image_url,
+      profile_image_url:
+        fetchedData.data.kakao_account.profile.profile_image_url,
       email: fetchedData.data.kakao_account.email,
       gender: 0,
       age_range: 0,
