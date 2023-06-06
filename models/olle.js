@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      route: {
+        type: DataTypes.JSON(DataTypes.JSON),
+        allowNull: true,
+        defaultValue: [],
+      },
       contact: {
         type: DataTypes.TEXT,
         allowNull: false,
