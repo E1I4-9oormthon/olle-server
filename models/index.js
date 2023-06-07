@@ -25,27 +25,27 @@ const db = {
 };
 
 db.Member.hasMany(db.Olle, {
-  foreignKey: "id",
+  foreignKey: "member_id",
 });
 db.Olle.belongsTo(db.Member, {
-  foreignKey: "id",
+  foreignKey: "member_id",
   as: "olle_writer",
 });
 
 db.Member.hasMany(db.Apply, {
-  foreignKey: "id",
+  foreignKey: "member_id",
 });
 db.Apply.belongsTo(db.Member, {
-  foreignKey: "id",
+  foreignKey: "member_id",
   as: "apply_writer",
 });
 
 db.Olle.hasMany(db.Apply, {
-  foreignKey: "id",
+  foreignKey: "olle_id",
   onDelete: "cascade",
 });
 db.Apply.belongsTo(db.Olle, {
-  foreignKey: "id",
+  foreignKey: "olle_id",
   as: "applied_olle",
 });
 

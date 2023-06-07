@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const Olle = sequelize.define(
     "olle",
     {
-      id: {
+      olle_id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
         allowNull: false,
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       prefer_gender: {
-        type: DataTypes.TEXT,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       start_date: {
@@ -21,8 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       course: {
-        type: DataTypes.TEXT,
+        type: DataTypes.INTEGER,
         allowNull: false,
+      },
+      route: {
+        type: DataTypes.JSON(DataTypes.JSON),
+        allowNull: true,
+        defaultValue: [],
       },
       contact: {
         type: DataTypes.TEXT,

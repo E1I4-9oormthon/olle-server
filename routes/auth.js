@@ -16,11 +16,11 @@ router.get(
   async (req, res) => {
     try {
       const accordMember = await Member.findOne({
-        where: { id: res.locals.userDataFromKakao.id },
+        where: { member_id: res.locals.userDataFromKakao.member_id },
       });
 
       const memberId = {
-        memberId: res.locals.userDataFromKakao.id,
+        memberId: res.locals.userDataFromKakao.member_id,
       };
 
       const token = sign(memberId);

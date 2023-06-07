@@ -2,23 +2,23 @@ module.exports = (sequelize, DataTypes) => {
   const Member = sequelize.define(
     "member",
     {
-      id: {
+      member_id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true,
       },
       nickname: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
-      profile_image: {
+      profile_image_url: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
       email: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       gender: {
