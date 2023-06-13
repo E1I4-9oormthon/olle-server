@@ -1,4 +1,4 @@
-const express = require("express");
+const express = equire("express");
 const router = express.Router();
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { verify } = require("../modules/jwt");
@@ -30,6 +30,14 @@ router.post("/", isSignedIn, async (req, res) => {
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
   }
+});
+
+/**
+ * 제안서 조회
+ */
+router.get("/", async (req, res) => {
+  try {
+  } catch {}
 });
 
 module.exports = router;
