@@ -54,7 +54,7 @@ router.get("/", async (req, res) => {
         {
           model: Member,
           as: "olle_writer",
-          attributes: ["member_id", "nickname"],
+          attributes: ["member_id", "nickname", "profile_image_url"],
         },
         {
           model: Apply,
