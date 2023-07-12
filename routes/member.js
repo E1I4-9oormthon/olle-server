@@ -19,7 +19,7 @@ router.get("/info", isSignedIn, async (req, res) => {
       attributes: [
         "member_id",
         "nickname",
-        "profile_image",
+        "profile_image_url",
         "email",
         "gender",
         "age_range",
